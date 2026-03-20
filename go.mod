@@ -2,7 +2,7 @@ module github.com/luolanzone/renovate-test
 
 go 1.22.0
 
-require google.golang.org/grpc v1.72.0
+require google.golang.org/grpc v1.79.3
 
 require (
 	github.com/pion/dtls/v2 v2.2.12 // indirect
