@@ -1,0 +1,60 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:recommended",
+    ":gitSignOff",
+  ],
+
+  enabledManagers: ["gomod"],
+
+  // Active release branches
+  baseBranches: ["main", "release-1.1", "release-1.0"],
+  prConcurrentLimit: 9,
+  prHourlyLimit: 0,
+
+  postUpdateOptions: ["gomodTidy"],
+
+  separateMajorMinor: false,
+  separateMinorPatch: false,
+
+  labels: ["dependencies"],
+
+  // Enabling security updates based on GitHub Dependabot alerts
+  vulnerabilityAlerts: {
+    enabled: true,
+  },
+
+  packageRules: [
+    // Disable all regular updates for active release branches
+    // Don't write any rules before this rule
+    {
+      matchBaseBranches: ["release-1.1", "release-1.0"],
+      groupName: "all dependencies active release branches",
+      groupSlug: "all-deps-active-release-branches",
+      enabled: false,
+    },
+
+    // Re-enable vulnerability/security updates for active release branches
+    {
+      matchBaseBranches: ["release-1.1", "release-1.0"],
+      isVulnerabilityAlert: true,
+      enabled: true,
+    },
+
+    // Disable indirect go dependencies updates
+    {
+      matchManagers: ["gomod"],
+      matchDepTypes: ["indirect"],
+      enabled: false,
+    },
+
+    // Re-enable vulnerability/security updates for indirect go dependencies on all branches
+    // Must come after both the release branch disable rule and the indirect disable rule
+    {
+      matchManagers: ["gomod"],
+      matchDepTypes: ["indirect"],
+      isVulnerabilityAlert: true,
+      enabled: true,
+    },
+  ],
+}
