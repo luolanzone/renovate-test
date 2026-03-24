@@ -34,15 +34,6 @@
       enabled: false,
     },
 
-    // Re-enable vulnerability/security updates for active release branches
-    {
-      matchBaseBranches: ["release-1.1", "release-1.0"],
-      isVulnerabilityAlert: true,
-      enabled: true,
-      groupName: null,
-      groupSlug: null,
-    },
-
     // Disable indirect go dependencies updates
     {
       matchManagers: ["gomod"],
