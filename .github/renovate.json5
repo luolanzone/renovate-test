@@ -39,6 +39,8 @@
       matchBaseBranches: ["release-1.1", "release-1.0"],
       isVulnerabilityAlert: true,
       enabled: true,
+      groupName: null,
+      groupSlug: null,
     },
 
     // Disable indirect go dependencies updates
