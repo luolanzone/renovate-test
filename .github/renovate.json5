@@ -19,9 +19,22 @@
 
   labels: ["dependencies"],
 
-  // Enabling security updates based on GitHub Dependabot alerts
+  // GitHub Dependabot alerts → Renovate security PRs. Defaults (groupName: null, per-dep
+  // branchTopic) are merged with force over top-level packageRules, so AWS grouping must live
+  // here—not under root packageRules—or you get one PR per module (see renovatebot/renovate#15107).
   vulnerabilityAlerts: {
     enabled: true,
+    packageRules: [
+      {
+        // matchBaseBranches here requires vulnerabilityAlerts.baseBranchPatterns; root
+        // baseBranches already limits scanned bases.
+        matchManagers: ["gomod"],
+        matchPackagePrefixes: ["github.com/aws/"],
+        enabled: true,
+        groupName: "AWS SDK for Go dependencies",
+        groupSlug: "aws-sdk-go",
+      },
+    ],
   },
 
   packageRules: [
