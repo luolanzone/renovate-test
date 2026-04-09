@@ -34,6 +34,20 @@
       enabled: false,
     },
 
+    // AWS: one grouped PR for GitHub vulnerability remediations on main and release branches.
+    // matchJsonata is required so this overrides (1) the release-branch blanket enabled:false
+    // above and (2) the routine enabled:false for github.com/aws/* in the prefix list. A
+    // groupName-only rule is not enough on release branches because rule 1 blocks all PRs there.
+    {
+      matchManagers: ["gomod"],
+      matchPackagePrefixes: ["github.com/aws/"],
+      matchJsonata: ["$exists(vulnerabilityFixVersion)"],
+      enabled: true,
+      groupName: "AWS SDK for Go dependencies",
+      groupSlug: "aws-sdk-go",
+      matchBaseBranches: ["main", "release-1.1", "release-1.0"],
+    },
+
     // Disable indirect go dependencies updates
     {
       matchManagers: ["gomod"],
