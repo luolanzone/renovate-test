@@ -17,11 +17,16 @@ package main
 import (
 	"fmt"
 
+	awseventstream "github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"google.golang.org/grpc"
 )
 
 func main() {
 	// Minimal usage to keep grpc as a direct dependency.
 	_ = grpc.Version
+	// Pinned AWS modules for Renovate / Dependabot vulnerability testing.
+	var _ awseventstream.Header
+	var _ *s3.Client
 	fmt.Println("renovate-test")
 }
