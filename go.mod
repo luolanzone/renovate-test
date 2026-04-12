@@ -17,7 +17,7 @@ go 1.24.0
 
 require (
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.6.8
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.76.1
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.97.3
 	google.golang.org/grpc v1.77.0
 )
 
